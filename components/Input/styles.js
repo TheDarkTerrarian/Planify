@@ -9,7 +9,11 @@ input:{
     marginVertical:8,
     fontSize:15,
     color: colors.darkGrey
-
+},
+outlined:{
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    backgroundColor: colors.white    
 }
 })
 export default styles;

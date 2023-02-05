@@ -8,11 +8,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useEffect } from "react";
 import { getFirebaseApp } from "../screens/auth/SignUp/utils/firebaseHelper";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { View, Text } from "react-native";
+import { createDrawerNavigator} from "@react-navigation/drawer";
+import { View, Text, Image, StyleSheet } from "react-native";
 import Home from "../screens/app/Home";
 import Tasks from "../screens/app/Tasks";
 import AddTask from "../screens/app/AddTask";
+import DrawerContent from "../components/DrawerContent/index";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -33,18 +34,23 @@ const AppNavigator = () => {
   }, []);
 
   const Tabs = () => {
-    <Tab.Navigator>
-      <Drawer.Screen name="Inicio" component={Home} />
-      <Drawer.Screen name="Tareas" component={Tasks} />
-    </Tab.Navigator>;
+    return (
+      <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false}}>
+        <Tab.Screen name="Home" component={Home} options= {{tabBarIcon: ({focused})=>(
+          <Image style={styles.icon} source={focused ? require("../assets/home_blue.png") : require("../assets/home_grey.png")}></Image>
+        )}}/>
+        <Tab.Screen name="Tasks" component={Tasks} options= {{tabBarIcon: ({focused})=>(
+          <Image style={styles.icon} source={focused ? require("../assets/calendar_blue.png") : require("../assets/calendar_grey.png")}></Image>
+        )}}/>
+      </Tab.Navigator>
+    )
   };
   if (user) {
     return (
       <NavigationContainer>
-        <Drawer.Navigator>
-
+        <Drawer.Navigator drawerContent={(props)=> (<DrawerContent {...props}></DrawerContent>)}>
           <Drawer.Screen name="Tabs " component={Tabs} />
-          <Drawer.Screen name="Añadir Tareas " component={AddTask} />
+          <Drawer.Screen name="AddTask" component={AddTask} options={{headerShown: false}}/>
         </Drawer.Navigator>
       </NavigationContainer>
     );
@@ -59,5 +65,12 @@ const AppNavigator = () => {
     </NavigationContainer>
   );
 };
+
+const styles= StyleSheet.create({
+  icon:{
+    width: 24,
+    height: 24
+  }
+})
 
 export default AppNavigator;

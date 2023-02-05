@@ -6,7 +6,9 @@ title:{
     color: colors.black,
     fontWeight:"bold",
     paddingVertical: 24
-
+},
+blue:{
+    color: colors.blue
 }
 })
 export default styles;

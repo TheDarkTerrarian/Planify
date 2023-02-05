@@ -1,8 +1,12 @@
 import React from 'react'
+import { SafeAreaView, Text } from 'react-native'
 
 const Tasks = () => {
   return (
-    <div>Task</div>
+    <SafeAreaView>
+      <Text>Tasks</Text>
+    </SafeAreaView>
+    
   )
 }
 
